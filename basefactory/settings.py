@@ -89,7 +89,7 @@ DATABASES = {
         'NAME': 'harmonyfactory',
         'USER': 'harmonyfactory',
         'PASSWORD': 'semlor.choux.dasauto',
-        'HOST': 'localhost',  # Set the MySQL host, e.g., 'localhost' or '127.0.0.1'
+        'HOST': '/tmp/mysql.sock',  # Set the MySQL host, e.g., 'localhost' or '127.0.0.1'
         'PORT': '',  # Leave empty to use the default MySQL port (3306)
         'OPTIONS': {
             'local_infile': True,
