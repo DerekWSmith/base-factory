@@ -17,8 +17,37 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from rest_framework import routers, serializers, viewsets
+
+import accounts.models
+
+'''
+The following is sample codes
+To check the DRF is working
+It shows users deets
+
+'''
+
+# Serializers define the API representation.
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = accounts.models.User
+        fields = ['url', 'email', 'is_staff']
+
+# ViewSets define the view behavior.
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = accounts.models.User.objects.all()
+    serializer_class = UserSerializer
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
+    path('', include(router.urls)),
+    path('api/V1/', include('rest_framework.urls'))
 
 ]

@@ -1,6 +1,11 @@
 # Django - related
 django
 django-debug-toolbar
+djangorestframework
+markdown       # Markdown support for the browsable API of djangorestframework.
+django-filter  # Filtering support - for DRF
+
+
 
 #  DB drivers
 mysqlclient
