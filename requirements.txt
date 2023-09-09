@@ -1,6 +1,13 @@
+# Django - related
 django
-python-dotenv
+django-debug-toolbar
+
+#  DB drivers
 mysqlclient
 
+# reads .env, and converts to env variables
+python-dotenv
+
+# Deploy
 gunicorn
 getenv
