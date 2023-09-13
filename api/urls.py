@@ -14,20 +14,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+
 from django.urls import include, path
-
 from rest_framework import routers, serializers, viewsets
+from .views import ApiTest
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from accounts.views import RegisterUser
 
-import accounts.models
-import api
 
 '''
-The following is sample codes
+The following is sample code
 To check the DRF is working
 It shows users deets
 
-'''
+
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -44,12 +47,15 @@ class UserViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
+urlpatterns = [
+    path('', include(router.urls)),
+]
+'''
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("__debug__/", include("debug_toolbar.urls")),
-    path('', include(router.urls)),
-    path('api/V1/', include("api.urls")),
-    # path('api/V1/', include('rest_framework.urls'))
+    path('', ApiTest, name='ApiTest'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('register/', RegisterUser.as_view(), name='register'),
 
 ]
