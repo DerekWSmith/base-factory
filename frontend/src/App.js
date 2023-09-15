@@ -7,12 +7,28 @@ import NotFound from "./views/NotFound";
 import {Row, Col, Container} from "react-bootstrap";
 import LogoComponent from "./components/logoComponent";
 
+import { useDispatch } from 'react-redux';
+import { setTwinkle } from './store/actions'; // Import your action
+
+function SetupVars() {
+const dispatch = useDispatch();
+dispatch(setTwinkle('Twinkle cave'));
+
+}
+
+
 function App() {
+
+
+
+SetupVars() ;
+
   return (
  <BrowserRouter>
         {/* Your application's navigation */}
         <Container fluid>
           <LogoComponent />
+
         <Row  className="d-flex justify-content-end">
             <Col sm={12} md={1} lg={1}>
               Home
@@ -37,7 +53,6 @@ function App() {
           <Route path="*" element={<NotFound />} />
       </Routes>
           </Container>
-
     </BrowserRouter>
   );
 }

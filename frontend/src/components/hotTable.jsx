@@ -4,8 +4,10 @@ import { registerAllModules } from 'handsontable/registry';
 import 'handsontable/dist/handsontable.full.min.css';
 import {useEffect} from "react";
 
-import {useDispatch, useSelector} from "react-redux";
-import { fetchSheetData } from '../store/sheetSlice'; // Import your slice where fetchSheetData is defined
+import   {fetchDataAndStoreInRedux }  from "../utils/api"
+
+import { useSelector} from "react-redux";
+
 registerAllModules();
 
 
@@ -14,16 +16,27 @@ registerAllModules();
 
 
 export const TableC = () => {
-  const dispatch = useDispatch();
+
+  // const dispatch = useDispatch();
   const sheetData = useSelector((state) => state.sheet.data);
   const loading = useSelector((state) => state.sheet.loading);
   const error = useSelector((state) => state.sheet.error);
 
   useEffect(() => {
+
+    async function fd() {
+    console.log("useEffect : awaiting in fd")
+    await fetchDataAndStoreInRedux() ;
+  }
+  fd();
+
+    console.log("What wwe got ere?")
+
     // Dispatch the async thunk to fetch data when the component mounts
-    console.log("useEffect")
-    dispatch(fetchSheetData({ /* your params here */ }));
-  }, [dispatch]);
+
+
+
+  }, []);
 
   // Render your component based on the loading and error states
   if (loading) {

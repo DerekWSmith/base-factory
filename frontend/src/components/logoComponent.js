@@ -37,15 +37,15 @@ const LogoImage = styled.img`
 `
 ;
 
-const LogoComponent = ({ logoUrl }) => {
+const LogoComponent = ({ url }) => {
   return (
-      <LogoImage src={logoUrl} alt="Logo" />
+      <LogoImage src={url} alt="Logo" />
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    logoUrl: state.logo.logoUrl,
+    url: state.logo.url,
   };
 };
 

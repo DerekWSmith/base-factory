@@ -1,56 +1,25 @@
-// sheetSlice.js
-
-import { createSlice } from '@reduxjs/toolkit';
-// import axios from 'axios';
-import {createAsyncThunk} from "@reduxjs/toolkit";
-//
-export const fetchSheetData = createAsyncThunk(
-  'sheet/fetchSheetData',
-  async (params, thunkAPI) => {
-    const queryParams = {
-      page: 1,
-      ...params,
-    };
+import { STORE_SHEET_DATA }  from './actions'
 
 
-    try {
-        console.log("Heading for data")
-      const response = await fetch('/testdata/testdata.json', { params: queryParams });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+
+const initialState = {
+  data: [], // Initial state for the 'sheet.data' key
+  // other properties
+};
+
+
+
+const sheetReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case STORE_SHEET_DATA:
+      return {
+        ...state,
+        data: action.payload, // Update the 'data' property within the 'sheet' slice
+      };
+    // other cases
+    default:
+      return state;
   }
-);
+};
 
-console.log("Initialising the slice")
-
-const sheetSlice = createSlice({
-  name: 'sheet',
-  initialState: {
-    data: [],
-    loading: false,
-    error: null,
-  },
-  reducers: {  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchSheetData.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-        console.log("Pending")
-      })
-      .addCase(fetchSheetData.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = action.payload;
-        console.log("data")
-      })
-      .addCase(fetchSheetData.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-        console.log("Error")
-      });
-  },
-});
-
-export default sheetSlice.reducer;
+export default sheetReducer;
